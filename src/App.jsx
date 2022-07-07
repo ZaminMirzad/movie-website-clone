@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 // local import
 import Footer from './layouts/Footer';
@@ -21,9 +23,23 @@ import Shows from './pages/Tv/Shows';
 import SingleTv from './pages/Tv/SingleTv/SingleTv';
 import SearchResults from './pages/Search/SearchResults';
 import Person from './pages/Person/Person';
+import { fetchTrendings } from './context/slices/movie/trendingSlice.js';
+import { fetchNowPlaying } from './context/slices/movie/nowPlayingSlice.js';
+import { fetchPopulars } from './context/slices/movie/popularSlice.js';
+import { fetchUpcomings } from './context/slices/movie/upcomingSlice.js';
+import { fetchTopRated } from './context/slices/movie/topRatedSlice.js';
 
 function App() {
   let url = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTrendings());
+    dispatch(fetchNowPlaying());
+    dispatch(fetchPopulars());
+    dispatch(fetchUpcomings());
+    dispatch(fetchTopRated());
+  }, [dispatch]);
 
   return (
     <div className="bg-dark">

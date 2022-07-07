@@ -3,8 +3,10 @@ import axios from 'axios';
 import { BASE_URL, API_KEY } from '../../../constants/constants';
 
 // fetching thunk function
-export const getMovieById = createAsyncThunk('movies/fetchTrendings', async () => {
-  const response = await axios.get(`${BASE_URL}/trending/all/day?api_key=${API_KEY}`);
+export const getMovieById = createAsyncThunk('movies/fetchById', async (id) => {
+  const response = await axios.get(
+    `${BASE_URL}/movie/${id}?api_key=${API_KEY}&append_to_response=videos,similar,credits`
+  );
   return response.data;
 });
 

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { SEARCH_ROUTE } from '../routes.js';
 
 export default function DropDown({ data, click }) {
   const [genre, setGenre] = useState('genres');
   const [show, setShow] = useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const mref = useRef(null);
 
   const handleClick = () => {
@@ -27,7 +27,7 @@ export default function DropDown({ data, click }) {
       <div>
         <button
           type="button"
-          className="inline-flex justify-between w-[9rem] rounded-sm border border-gray-300 shadow-sm px-3 py-1 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-gray-100 focus:ring-indigo-500 capitalize"
+          className="inline-flex justify-between w-[9rem] rounded-sm border border-primary shadow-sm px-3 py-1 bg-dark text-sm font-medium text-light hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-offset-gray-100 focus:ring-indigo-500 capitalize"
           id="menu-button"
           aria-expanded="true"
           aria-haspopup="true"
@@ -50,7 +50,7 @@ export default function DropDown({ data, click }) {
       {/* menu items */}
       {show && (
         <div
-          className="origin-top-right absolute right-0 mt-2 w-full rounded-sm shadow-lg bg-dark  focus:outline-none"
+          className="origin-top-right absolute right-0 mt-1 w-36 rounded-sm shadow-lg bg-dark  focus:outline-none h-96 overflow-auto z-50 "
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"

@@ -19,17 +19,19 @@ export default function MainContainer({ data, title, type }) {
     scrollRef.current.scrollLeft -= 300;
   };
   return (
-    <div className="lg:mx-12 md:mx-8 sm:mx-2 mx-2  my-6 ">
+    <div className="lg:mx-12 md:mx-8 sm:mx-2 mx-1  my-6 ">
       {title && (
         <div className="mb-5 flex flex-col gap-2">
-          <h1 className="text-4xl text-light uppercase">{title}</h1>
-          <div className="border-b-4 border-b-primary w-20"></div>
+          <h1 className="xl:text-4xl lg:text-lg md:text-sm sm:text-xs text-xs text-light uppercase">
+            {title}
+          </h1>
+          <div className="border-b-4 border-b-primary lg:w-20 w-5"></div>
         </div>
       )}
       {data?.length > 0 && (
         <div
           ref={scrollRef}
-          className="flex overflow-x-scroll  mb-14 cusScroll snap-x scroll-smooth  ">
+          className="flex overflow-x-scroll overflow-y-hidden pb-10  mb-14 cusScroll snap-x scroll-smooth lg:h-96 md:h-80 h-60  ">
           <LeftArrow click={handleLeftScroll} />
           <div className="flex gap-3 ">
             {data?.map((item) => {

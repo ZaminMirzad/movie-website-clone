@@ -4,7 +4,7 @@ import { BASE_URL, API_KEY } from '../../../constants/constants';
 
 // fetching thunk function
 export const fetchTrendings = createAsyncThunk('movies/fetchTrendings', async () => {
-  const response = await axios.get(`${BASE_URL}/trending/all/day?api_key=${API_KEY}`);
+  const response = await axios.get(`${BASE_URL}/trending/all/week?api_key=${API_KEY}`);
   return response.data;
 });
 

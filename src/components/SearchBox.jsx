@@ -26,11 +26,11 @@ export default function SearchBox() {
     <div className="relative">
       <form
         onSubmit={() => handleSubmit()}
-        className="border border-primary lg:flex md:flex sm:hidden hidden items-center gap-1 rounded-sm ">
+        className="border border-primary flex items-center gap-1 rounded-sm ">
         <input
           type="text"
-          className="bg-primary outline-none px-2 py-0.5 focus:border-secondary border-primary border rounded-sm"
-          placeholder="Search"
+          className="bg-primary outline-none px-2 py-0.5 focus:border-secondary border-primary border rounded-[1px] caret-secondary"
+          placeholder="Search..."
           value={term}
           onChange={() => handleChange()}
           required
@@ -38,24 +38,25 @@ export default function SearchBox() {
         <i
           className={`text-lg ${
             term === '' ? 'ri-search-line' : 'ri-close-fill'
-          } mr-1 w-6 h-6 flex items-center justify-center cursor-pointer`}
+          } mr-1 w-6 h-6 flex items-center justify-center cursor-pointer hover:text-light text-primary text-2xl font-bold`}
           onClick={() => setTerm('')}></i>
       </form>
-      {show && term !== '' && (
-        <div className="absolute bg-dark p-3 rounded-sm flex flex-col gap-2 max-h-72 shadow-xl overflow-y-auto scrollbar-thin w-full py-2">
-          {res?.map((a) => {
-            return (
-              <span
-                key={a.id}
-                className="hover:bg-secondary rounded-sm px-1 hover:cursor-pointer"
-                onClick={() => {
-                  navigate(`${SEARCH_ROUTE}/${a.name || a.title}`);
-                  setShow(false);
-                }}>
-                {a.name || a.title}
-              </span>
-            );
-          })}
+      {term !== '' && show && (
+        <div className="absolute bg-primary rounded-sm flex flex-col gap-2 max-h-72 shadow-xl overflow-y-auto scrollbar-thin w-full mt-1 overflow-x-hidden ">
+          {res?.length !== 0 &&
+            res?.map((a) => {
+              return (
+                <span
+                  key={a.id}
+                  className="hover:bg-secondary rounded-sm px-1 hover:cursor-pointer mb-1 mx-1 "
+                  onClick={() => {
+                    navigate(`${SEARCH_ROUTE}/${a.name || a.title}`);
+                    setShow(false);
+                  }}>
+                  {a.name || a.title}
+                </span>
+              );
+            })}
         </div>
       )}
     </div>

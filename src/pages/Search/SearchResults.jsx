@@ -11,7 +11,9 @@ export default function SearchResults() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${BASE_URL}/search/multi?api_key=${API_KEY}&query=${params.query}`)
+    fetch(
+      `${BASE_URL}/search/multi?api_key=${API_KEY}&query=${params.query}&page=1&include_adult=false`
+    )
       .then((res) => res.json())
       .then((data) => setResult(data));
   }, [params.query]);

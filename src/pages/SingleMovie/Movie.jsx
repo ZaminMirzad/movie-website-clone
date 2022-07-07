@@ -1,47 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getMovieById } from '../../context/slices/movie/getMovieDetailsSlice.js';
 
 import Button from '../../components/Button';
 import MainContainer from '../../components/MainContainer';
 import CastCard from '../../components/CastCard';
 import VideoModal from '../../components/VideoModal';
-import { API_KEY, BASE_URL, PICTURE_URL } from '../../constants/constants';
-import { getMovieCredits } from '../../gql/queries.js';
+import { PICTURE_URL } from '../../constants/constants';
 import svg from '../../assets/images/pulse.svg';
 
 export default function Movie() {
-  const [videos, setVideos] = useState();
-  const [similar, setSimilar] = useState();
-  const [details, setDetails] = useState({ error: false });
   const [show, setShow] = useState(false);
+  const details = useSelector((state) => state.movieDetails.list);
   const params = useParams();
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { data } = useQuery(getMovieCredits(`/movie/${params.movieId}/credits?api_key=`), {
-    fetchPolicy: 'network-only'
-  });
-  const producer = data?.credits?.crew?.filter(
+  const producer = details?.credits?.crew?.filter(
     (x) =>
       x.job?.toLocaleLowerCase() === 'producer' ||
       x.job?.toLocaleLowerCase() === 'executive producer'
   );
   useEffect(() => {
-    fetch(`${BASE_URL}/movie/${params.movieId}?api_key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (Object.hasOwn(data, 'success')) {
-          setDetails({ error: true, ...data });
-        } else {
-          setDetails({ error: false, ...data });
-        }
-      });
-    fetch(`${BASE_URL}/movie/${params.movieId}/videos?api_key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setVideos(data));
-    fetch(`${BASE_URL}/movie/${params.movieId}/similar?api_key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setSimilar(data));
+    dispatch(getMovieById(params.movieId));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [params.movieId]);
 
@@ -58,23 +40,16 @@ export default function Movie() {
     };
   }, [show]);
 
-  if (details.error) {
-    setTimeout(() => {
-      if (details.error) {
-        navigate('/');
-      }
-    }, 2500);
-    return (
-      <div className="h-[90vh] text-3xl text-danger flex items-center justify-center">
-        Oops, something went wrong please check out later...
-      </div>
-    );
-  }
   return (
     <div className="text-gray relative">
       {/* video */}
-      {videos?.results?.length > 0 && (
-        <VideoModal videos={videos?.results[0]} click={() => handleClick} id="mModal" show={show} />
+      {details?.videos?.results?.length > 0 && (
+        <VideoModal
+          videos={details?.videos?.results[0]}
+          click={() => handleClick}
+          id="mModal"
+          show={show}
+        />
       )}
       <div
         style={{
@@ -144,13 +119,13 @@ export default function Movie() {
       <div className="grid lg:grid-cols-6 md:grid-cols-2 sm:grid-cols-1 grid-cols-1  mt-5 lg:px-12 md:px-8 sm:px-4 px-4">
         <CastCard data={producer?.slice(0, 1)} title="producer" css="mb-5 col-span-1" />
         <CastCard
-          data={data?.credits?.cast}
+          data={details?.credits?.cast}
           title="casts"
           css="col-span-5 mb-5 lg:mr-12 md:mr-8 sm:mr-4 w-full"
         />
       </div>
       {/* related movies */}
-      <MainContainer title="related" data={similar?.results} />
+      <MainContainer title="related" data={details?.similar?.results} />
     </div>
   );
 }

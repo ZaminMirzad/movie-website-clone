@@ -7,9 +7,9 @@ import { PICTURE_URL } from '../constants/constants';
 function MovieCard({ image, name, date, country, rate, click, media }) {
   return (
     <div
-      className="flex h-96 w-48 flex-col gap-2 border-b-2 border-dark hover:border-primary cursor-pointer justify-between pb-2 transition-all ease-in-out duration-500 min-w-80 relative flex-auto max-w-[15rem]"
+      className="flex lg:h-[370px] md:h-[310px] sm:h-56 h-56 lg:w-64 md:w-44 sm:w-32 w-28  flex-col lg:gap-2 gap border-b-2 border-dark hover:border-secondary cursor-pointer justify-between pb-2 transition-all ease-in-out duration-300 min-w-80 relative flex-auto max-w-[15rem] mb-10 bg-primary rounded-sm"
       onClick={click}>
-      <div className="h-72">
+      <div className="h-32 lg:h-64 md:h-52 ">
         <img
           src={
             `${PICTURE_URL}${image}` ||
@@ -18,24 +18,28 @@ function MovieCard({ image, name, date, country, rate, click, media }) {
           alt={name}
           placeholder="https://militaryhealthinstitute.org/wp-content/uploads/sites/37/2021/08/blank-profile-picture-png.png"
           load="eager"
-          className="h-[288px] w-full"
+          className="h-full w-full rounded-t-sm"
         />
       </div>
-      <h1 className="text-gray font-semibold truncate uppercase ml-2">{name}</h1>
-      <p className="text-gray flex gap-2 justify-around font-semibold ml-2">
-        {date && <span>{date?.slice(0, 4)}</span>}
+      <span className=" text-gray capitalize mx-1 lg:text-lg md:text-sm text-[10px] break-normal ">
+        {name?.slice(0, 34)}
+      </span>
+      <p className=" text-gray flex items-center gap-2 justify-around  mx-1 lg:text-lg md:text-sm text-[8px]">
+        {date && <span className="lg:text-lg md:text-sm text-xs">{date?.slice(0, 4)}</span>}
         {rate !== 0 && (
           <span className="text-yellow-400 fill-current">
             {Array.from({ length: parseInt(rate / 2) }, (_, i) => i + 1).map((r) => {
-              return <i key={r} className="ri-star-s-fill text-warning"></i>;
+              return <i key={r} className="ri-star-s-fill text-warning "></i>;
             })}
           </span>
         )}
         {country && (
-          <span className="border px-0.5 text-xs flex items-center  uppercase">{country}</span>
+          <span className="border   flex items-center justify-center  uppercase m-0 p-0 w-3 h-3 lg:w-auto lg:h-auto md:h-auto md:w-auto rounded-sm">
+            {country}
+          </span>
         )}
         {media && (
-          <span className="border px-0.5 text-xs flex flex-col justify-center uppercase">
+          <span className="border  flex items-center uppercase  lg:w-auto lg:h-auto md:h-auto md:w-auto rounded-sm">
             {media}
           </span>
         )}

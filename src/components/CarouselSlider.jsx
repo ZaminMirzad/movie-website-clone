@@ -27,7 +27,7 @@ export default function CarouselSlider({ data }) {
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat'
             }}
-            className="xl:h-[80vh] lg:h-full md:h-80 sm:h-80  sm:px-10 lg:px-12 md:px-8 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end text-gray">
+            className="xl:h-[calc(100vh-50px)] lg:h-[calc(100vh-50px)] md:h-[calc(68vh-50px)] sm:h-full  sm:px-10 lg:px-12 md:px-8 py-10 grid lg:grid-cols-3 md:grid-cols-2   justify-center items-end text-gray">
             {/* details */}
             <div className="text-white order-1 lg:order-none  p-2 flex flex-col gap-1  ">
               <h1 className="text-xl lg:text-3xl md:text-2xl capitalize w-full  text-left">
@@ -67,7 +67,7 @@ export default function CarouselSlider({ data }) {
                 <Button
                   text="check out"
                   icon="play-circle-fill"
-                  css="lg:px-5 px-2 py-2 lg:w-52 md:w-28 w-26 text-sm"
+                  css="lg:w-28 md:w-28 w-28 flex justify-around py-1 md:text-md  text-sm"
                   click={() =>
                     navigate(`${i.media_type === 'tv' ? TV_ROUTE : MOVIE_ROUTE}/${i.id}`)
                   }
@@ -75,7 +75,7 @@ export default function CarouselSlider({ data }) {
                 <Button
                   text="My List"
                   icon="add-circle-fill"
-                  css="lg:px-5 px-2 py-2 lg:w-52 md:w-28 w-26 text-sm"
+                  css="lg:w-28 md:w-28 w-28 flex justify-around py-1 md:text-md  text-sm "
                   onClick={() => {}}
                 />
               </p>
