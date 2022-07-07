@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { BASE_URL, API_KEY } from '../../constants/constants.js';
 import { MOVIE_ROUTE, TV_ROUTE, PERSON_ROUTE } from '../../routes';
 import MovieCard from '../../components/MovieCard';
+import { searchByQuery } from '../../context/slices/searchSlice.js';
 
 export default function SearchResults() {
-  const [result, setResult] = useState();
+  const result = useSelector((state) => state.searchResults.list);
   const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(
-      `${BASE_URL}/search/multi?api_key=${API_KEY}&query=${params.query}&page=1&include_adult=false`
-    )
-      .then((res) => res.json())
-      .then((data) => setResult(data));
+    dispatch(searchByQuery(params.query));
   }, [params.query]);
 
   return (
