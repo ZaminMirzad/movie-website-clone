@@ -50,7 +50,7 @@ export default function DropDown({ data, click }) {
       {/* menu items */}
       {show && (
         <div
-          className="origin-top-right absolute right-0 mt-1 w-36 rounded-sm shadow-lg bg-dark  focus:outline-none h-96 overflow-auto z-50 "
+          className="origin-top-right absolute right-0 mt-1 w-36 rounded-sm shadow-lg bg-dark  focus:outline-none h-72 overflow-auto z-50 "
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
