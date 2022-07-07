@@ -1,43 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../../components/Button';
 import MainContainer from '../../../components/MainContainer';
 import CastCard from '../../../components/CastCard';
 import VideoModal from '../../../components/VideoModal';
 
-import { API_KEY, BASE_URL, PICTURE_URL } from '../../../constants/constants';
-import { getTvCredits } from '../../../gql/queries.js';
+import { PICTURE_URL } from '../../../constants/constants';
+import { getTvById } from '../../../context/slices/tv/getTvDetailsSlice.js';
 import svg from '../../../assets/images/pulse.svg';
 
 export default function SingleTv() {
-  const [videos, setVideos] = useState();
-  const [similar, setSimilar] = useState();
-  const [details, setDetails] = useState();
   const [show, setShow] = useState(false);
+  const details = useSelector((state) => state.tvDetails.list);
 
   const params = useParams();
-  // const tvModalRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`${BASE_URL}/tv/${params.tvId}/videos?api_key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setVideos(data));
-    fetch(`${BASE_URL}/tv/${params.tvId}?api_key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setDetails(data));
-    fetch(`${BASE_URL}/tv/${params.tvId}/similar?api_key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setSimilar(data.results));
+    dispatch(getTvById(params.tvId));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [params.tvId]);
 
-  const { data } = useQuery(getTvCredits(`/tv/${params.tvId}/credits?api_key=`), {
-    fetchPolicy: 'network-only'
-  });
-
-  const producer = data?.credits?.crew?.filter(
+  const producer = details?.credits?.crew?.filter(
     (x) =>
       x.job?.toLocaleLowerCase() === 'producer' ||
       x.job?.toLocaleLowerCase() === 'executive producer'
@@ -58,8 +44,13 @@ export default function SingleTv() {
   return (
     <div className="text-light">
       {/* video */}
-      {videos?.results?.length > 0 && (
-        <VideoModal videos={videos?.results[0]} click={() => handleClick} id="modal" show={show} />
+      {details?.videos?.results?.length > 0 && (
+        <VideoModal
+          videos={details?.videos?.results[0]}
+          click={() => handleClick}
+          id="modal"
+          show={show}
+        />
       )}
       {/* End video */}
       <div
@@ -131,13 +122,13 @@ export default function SingleTv() {
       <div className="grid lg:grid-cols-6 md:grid-cols-2 sm:grid-cols-1 grid-cols-1  mt-5 lg:px-12 md:px-8 sm:px-4 px-4">
         <CastCard data={producer?.slice(0, 1)} title="producer" css="mb-5 col-span-1" />
         <CastCard
-          data={data?.credits?.cast}
+          data={details?.credits?.cast}
           title="casts"
           css="col-span-5 mb-5 lg:mr-12 md:mr-8 sm:mr-4 w-full"
         />
       </div>
       {/* related movies */}
-      <MainContainer title="related" data={similar} />
+      <MainContainer title="related" data={details?.similar?.results} />
     </div>
   );
 }

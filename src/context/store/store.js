@@ -10,6 +10,7 @@ import tvPopularReducer from '../slices/tv/popularSlice';
 import tvTopRatedReducer from '../slices/tv/topRatedSlice';
 import tvOnAirReducer from '../slices/tv/onAirSlice';
 import tvAiringTodayReducer from '../slices/tv/airingTodaySlice';
+import tvDetailsReducer from '../slices/tv/getTvDetailsSlice';
 
 export default configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export default configureStore({
     tvPopular: tvPopularReducer,
     tvTopRated: tvTopRatedReducer,
     onAir: tvOnAirReducer,
-    airingToday: tvAiringTodayReducer
+    airingToday: tvAiringTodayReducer,
+    tvDetails: tvDetailsReducer
   }
 });
