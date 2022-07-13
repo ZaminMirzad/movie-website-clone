@@ -22,7 +22,7 @@ export default function CarouselSlider({ data }) {
             key={i.id}
             style={{
               backgroundImage: `linear-gradient(to right,rgba(0, 0, 0, 0.99),
-           transparent),url(${PICTURE_URL}${i.backdrop_path}) `,
+           transparent),url(${PICTURE_URL}/w1280/${i.backdrop_path}) `,
               backgroundPosition: 'center top',
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat'

@@ -53,7 +53,7 @@ export default function Movie() {
       )}
       <div
         style={{
-          backgroundImage: `url(${PICTURE_URL}${details?.backdrop_path})` || { svg },
+          backgroundImage: `url(${PICTURE_URL}/original/${details?.backdrop_path})` || { svg },
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundImageRepeat: 'no-repeat'

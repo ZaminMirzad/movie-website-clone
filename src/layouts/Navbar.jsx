@@ -85,7 +85,9 @@ export default function Navbar() {
 
       <div className="absolute lg:right-12 md:right-8 right-3 flex items-center  gap-2 h-full">
         <i
-          className="ri ri-menu-2-line text-3xl cursor-pointer lg:hidden md:hidden block"
+          className={`ri ${
+            !menu ? 'ri-menu-3-fill' : 'ri-close-fill text-4xl'
+          }  text-3xl cursor-pointer lg:hidden md:hidden block`}
           onClick={() => setmenu((prev) => !prev)}></i>
         <div className="lg:block md:block sm:hidden hidden right-0 z-40">
           <SearchBox />

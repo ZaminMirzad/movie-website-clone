@@ -10,7 +10,7 @@ export default function VideoModal(props) {
       <div
         id={id}
         className="h-screen w-full bg-dark bg-opacity-90 transition-transform duration-1000 ease-in-out  fixed  top-0 z-50">
-        <div className=" lg:h-[80vh] md:h-[65vh] sm:h-[55vh] h-[45vh] lg:w-[90vw] w-full  bg-gray-dark fixed  z-10 rounded-lg lg:top-1/2 top-1/3 left-1/3 lg:left-1/2 transform origni-top lg:-translate-x-1/2 -translate-x-1/3 lg:-translate-y-1/2 -translate-y-1/3">
+        <div className=" lg:h-[80vh] md:h-[65vh] sm:h-[55vh] h-[30vh] lg:w-[90vw] w-full  bg-gray-dark fixed  z-10 rounded-lg lg:top-1/2 top-1/3 left-1/3 lg:left-1/2 transform origni-top lg:-translate-x-1/2 -translate-x-1/3 lg:-translate-y-1/2 -translate-y-1/3">
           <iframe
             src={`https://www.youtube.com/embed/${videos?.key}?autoplay=1`}
             frameBorder="1"

@@ -12,7 +12,7 @@ function MovieCard({ image, name, date, country, rate, click, media }) {
       <div className="h-32 lg:h-64 md:h-52 ">
         <img
           src={
-            `${PICTURE_URL}${image}` ||
+            `${PICTURE_URL}/w185/${image}` ||
             'https://militaryhealthinstitute.org/wp-content/uploads/sites/37/2021/08/blank-profile-picture-png.png'
           }
           alt={name}

@@ -17,7 +17,7 @@ export default function Person() {
     <div className="lg:px-12 md:px-8 px-4 text-light">
       <div className="grid grid-cols-3 gap-3 my-10">
         <img
-          src={`${PICTURE_URL}${data?.profile_path}`}
+          src={`${PICTURE_URL}/original/${data?.profile_path}`}
           alt={data?.name}
           className="h-auto w-full col-span-1"
         />
