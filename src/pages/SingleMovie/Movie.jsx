@@ -13,7 +13,7 @@ import svg from '../../assets/images/pulse.svg';
 
 export default function Movie() {
   const [show, setShow] = useState(false);
-  const details = useSelector((state) => state.movieDetails.list);
+  const { list: details, status } = useSelector((state) => state.movieDetails);
   const params = useParams();
   const dispatch = useDispatch();
 
@@ -39,6 +39,13 @@ export default function Movie() {
       document.removeEventListener('click', handleClick, true);
     };
   }, [show]);
+
+  if (status === 'loading')
+    return (
+      <div className="flex justify-center items-center">
+        <img src={svg} alt="....." />
+      </div>
+    );
 
   return (
     <div className="text-gray relative">
@@ -126,6 +133,7 @@ export default function Movie() {
       </div>
       {/* related movies */}
       <MainContainer title="related" data={details?.similar?.results} />
+      <div className=""></div>
     </div>
   );
 }

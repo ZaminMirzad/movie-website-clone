@@ -13,7 +13,7 @@ import svg from '../../../assets/images/pulse.svg';
 
 export default function SingleTv() {
   const [show, setShow] = useState(false);
-  const details = useSelector((state) => state.tvDetails.list);
+  const { list: details, status } = useSelector((state) => state.tvDetails);
 
   const params = useParams();
   const dispatch = useDispatch();
@@ -41,6 +41,13 @@ export default function SingleTv() {
       document.removeEventListener('click', handleClick, true);
     };
   }, [show]);
+
+  if (status === 'loading')
+    return (
+      <div className="flex justify-center items-center">
+        <img src={svg} alt="....." />
+      </div>
+    );
   return (
     <div className="text-light">
       {/* video */}
